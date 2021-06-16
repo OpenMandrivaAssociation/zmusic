@@ -1,18 +1,14 @@
 Name:           zmusic
 Version:        1.1.8
-Release:        0
+Release:        1
 Summary:        ZDoom component library for music handling
 License:        GPL-3.0-only
 Group:          Development/Libraries/C and C++
 URL:            https://zdoom.org/
 
-#Git-Clone:     https://github.com/coelckers/ZMusic
 Source:         https://github.com/coelckers/ZMusic/archive/%version.tar.gz#/ZMusic-%version.tar.gz
-Patch1:         system-gme.patch
-Patch2:         dumb-dumb.patch
+
 BuildRequires:  cmake
-BuildRequires:  gcc-c++
-BuildRequires:  pkg-config
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(fluidsynth)
 BuildRequires:  pkgconfig(libgme)
@@ -66,16 +62,13 @@ export CXXFLAGS="%optflags -msse -msse2"
 	-DINSTALL_DOCS_PATH="%_defaultdocdir/%name" \
 	-DDYN_FLUIDSYNTH=OFF \
 	-DDYN_SNDFILE=OFF -DDYN_MPG123=OFF
-%cmake_build
+%make_build
 
 %install
-%cmake_install
+%make_install -C build
 b="%buildroot"
 # Won't need lite (a subset with no GPL code) in openSUSE.
 rm -f "$b/%_libdir"/libzmusiclite*
-
-%post   -n libzmusic1 -p /sbin/ldconfig
-%postun -n libzmusic1 -p /sbin/ldconfig
 
 %files -n libzmusic1
 %_libdir/libzmusic.so.1*

@@ -34,6 +34,7 @@ code repository starting with gzdoom-4.4.0.
 %package -n %{libname}
 Summary:        ZDoom component library for music handling
 Group:          System/Libraries
+Provides:	zmusic
 
 %description -n %{libname}
 This is the music playback code from gzdoom, which was separated into its own

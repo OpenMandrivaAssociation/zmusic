@@ -75,9 +75,11 @@ export CXXFLAGS="%optflags -msse -msse2"
 
 %files -n %{libname}
 %license licenses/*
-%_libdir/libzmusic.so.%{major}*
+%{_libdir}/libzmusic.so.%{major}*
+%{_libdir}/libzmusiclite.so.%{major}*
 
 %files -n %{devname}
-%_includedir/*
-%_libdir/libzmusic.so
-%_libdir/cmake/
+%{_includedir}/*
+%{_libdir}/libzmusic.so
+%{_libdir}/libzmusiclite.so
+%{_libdir}/cmake/

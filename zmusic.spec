@@ -1,3 +1,8 @@
+%define	oname	ZMusic
+%define major 	1
+%define libname	%mklibname %{name} %{major}
+%define devname	%mklibname -d %{name}
+
 Name:           zmusic
 Version:        1.1.8
 Release:        1
@@ -6,7 +11,7 @@ License:        GPL-3.0-only
 Group:          Development/Libraries/C and C++
 URL:            https://zdoom.org/
 
-Source:         https://github.com/coelckers/ZMusic/archive/%version.tar.gz#/ZMusic-%version.tar.gz
+Source:         https://github.com/coelckers/ZMusic/archive/%{version}/%{oname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(alsa)
@@ -26,25 +31,25 @@ Provides:       bundled(dumb) = 0.9.3
 This is the music playback code from gzdoom, which was separated into its own
 code repository starting with gzdoom-4.4.0.
 
-%package -n libzmusic1
+%package -n %{libname}
 Summary:        ZDoom component library for music handling
 Group:          System/Libraries
 
-%description -n libzmusic1
+%description -n %{libname}
 This is the music playback code from gzdoom, which was separated into its own
 code repository starting with gzdoom-4.4.0.
 
-%package devel
+%package -n %{devname}
 Summary:        Headers for the ZMusic library
 Group:          Development/Libraries/C and C++
-Requires:       libzmusic1 = %version
+Requires:       %{libname} = %{EVRD}
 
-%description devel
+%description -n	%{devname}
 This subpackage contains the headers for the zmusic library, which is ZDoom's
 music component library.
 
 %prep
-%autosetup -p0 -n ZMusic-%version
+%autosetup -p1 -n %{oname}-%{version}
 
 %build
 # There is handcrafted assembler, which LTO does not play nice with.
@@ -66,15 +71,13 @@ export CXXFLAGS="%optflags -msse -msse2"
 
 %install
 %make_install -C build
-b="%buildroot"
-# Won't need lite (a subset with no GPL code) in openSUSE.
-rm -f "$b/%_libdir"/libzmusiclite*
 
-%files -n libzmusic1
-%_libdir/libzmusic.so.1*
+
+%files -n %{libname}
 %license licenses/*
+%_libdir/libzmusic.so.%{major}*
 
-%files devel
+%files -n %{devname}
 %_includedir/*
 %_libdir/libzmusic.so
 %_libdir/cmake/

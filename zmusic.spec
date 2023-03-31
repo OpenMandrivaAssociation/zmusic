@@ -5,7 +5,7 @@
 
 Name:           zmusic
 Version:        1.1.11
-Release:        1
+Release:        2
 Summary:        ZDoom component library for music handling
 License:        GPL-3.0-only
 Group:          Development/Libraries/C and C++

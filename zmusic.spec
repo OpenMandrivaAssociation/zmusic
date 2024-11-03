@@ -4,7 +4,7 @@
 %define devname	%mklibname -d %{name}
 
 Name:           zmusic
-Version:        1.1.13
+Version:        1.1.14
 Release:        1
 Summary:        ZDoom component library for music handling
 License:        GPL-3.0-only
